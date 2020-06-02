@@ -1,36 +1,27 @@
 <template>
-  <form @submit.prevent="postData">
-    <div class="form-inner">
-      <div class="form-inner__field">
-        <label for="bookNow" class="flex my-20">
-          Enter a new "book now" url...
-        </label>
-        <p v-if="responseMsg !== ''" class="my-20">
-          {{ responseMsg }}
-        </p>
-        <div>
-          <input
-            id="bookNow"
-            v-model="newUrl"
-            type="text"
-            autocomplete="off"
-            name="book-now-url"
-            class="form-input"
-          />
-        </div>
-      </div>
-      <div class="form-inner__field">
-        <FormButton type="submit" color="orange" size="small" name="Submit" />
-      </div>
-    </div>
-  </form>
+  <FormWrapper
+    v-slot:default="formData"
+    method="post"
+    action="http://localhost:8000/api/update-url"
+  >
+    <FormTextInput
+      name="book_now_url"
+      label="Enter a new 'book now' url..."
+      :form-data="formData"
+    />
+    <FormButton type="submit" color="orange" size="small" name="Submit" />
+  </FormWrapper>
 </template>
 
 <script>
-import FormButton from './../form/FormButton'
+import FormWrapper from './../form/FormWrapper.vue'
+import FormTextInput from './../form/FormTextInput.vue'
+import FormButton from './../form/FormButton.vue'
 
 export default {
   components: {
+    FormWrapper,
+    FormTextInput,
     FormButton
   },
   data() {

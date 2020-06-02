@@ -180,6 +180,12 @@ export default {
   cursor: pointer;
   transition: 0.5s;
 
+  &:hover {
+    &:not(.indicator--active) {
+      background-color: #cecece;
+    }
+  }
+
   &--active {
     background-color: #f15b40;
     transition: 0.5s;

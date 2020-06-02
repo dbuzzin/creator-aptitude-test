@@ -51,7 +51,6 @@ export default {
     this.$store.dispatch('loadProperties')
   },
   mounted() {
-    console.log(this.$store.state)
     this.$store.subscribe((mutation, state) => {
       this.propertyArr = state.properties
     })

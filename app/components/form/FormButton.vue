@@ -1,7 +1,9 @@
 <template>
-  <button :type="type" :class="style" @click="onClick">
-    {{ name }}
-  </button>
+  <div class="form-inner__field">
+    <button :type="type" :class="style" @click="onClick">
+      {{ name }}
+    </button>
+  </div>
 </template>
 
 <script>
