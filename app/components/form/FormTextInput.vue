@@ -25,6 +25,10 @@ export default {
       type: String,
       default: ''
     },
+    value: {
+      type: String,
+      default: ''
+    },
     label: {
       type: String,
       default: ''

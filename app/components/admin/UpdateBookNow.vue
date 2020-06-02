@@ -1,62 +1,62 @@
 <template>
-  <FormWrapper
-    v-slot:default="formData"
-    method="post"
-    action="http://localhost:8000/api/update-url"
-  >
-    <FormTextInput
-      name="book_now_url"
-      label="Enter a new 'book now' url..."
-      :form-data="formData"
-    />
-    <FormButton type="submit" color="orange" size="small" name="Submit" />
-  </FormWrapper>
+  <div>
+    <div
+      v-for="(property, propertyIndex) in filterContracts(properties)"
+      :key="propertyIndex"
+      class="my-20"
+    >
+      <h2 class="property-title" @click="setOpenIndex(propertyIndex)">
+        {{ property.address.property_name }},
+        {{ property.address.road_name }}
+      </h2>
+      <UpdateBookNowContracts
+        :property="property"
+        :property-index="propertyIndex"
+        :open-index="openIndex"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
-import FormWrapper from './../form/FormWrapper.vue'
-import FormTextInput from './../form/FormTextInput.vue'
-import FormButton from './../form/FormButton.vue'
+import UpdateBookNowContracts from './UpdateBookNowContracts.vue'
+import { filterContracts } from './../../assets/javascript/utilities.js'
 
 export default {
   components: {
-    FormWrapper,
-    FormTextInput,
-    FormButton
+    UpdateBookNowContracts
   },
   data() {
     return {
-      newUrl: '',
-      responseMsg: ''
+      properties: this.$store.state.properties,
+      openIndex: 0
     }
   },
+  mounted() {
+    this.$store.subscribe((mutation, state) => {
+      this.properties = state.properties
+    })
+  },
   methods: {
-    /**
-     * Sends the new url to the server which then edits updates the json file.
-     */
+    filterContracts: (arr) => filterContracts(arr),
 
-    postData() {
-      this.responseMsg = ''
-      this.newUrl !== '' &&
-        this.$axios
-          .$post('http://localhost:8000/api/update-url', {
-            book_now_url: this.newUrl
-          })
-          .then((response) => {
-            this.newUrl = ''
-            this.responseMsg = 'Your new url was set successfully!'
-          })
-          .catch((error) => {
-            this.responseMsg =
-              'Sorry, there was an issue with your request. Please try again.'
-            throw new Error(error)
-          })
+    setOpenIndex(index) {
+      this.openIndex = index
     }
   }
 }
 </script>
 
 <style lang="postcss" scoped>
+.property-title {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 25px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
 .form-inner {
   display: flex;
   flex-direction: column;

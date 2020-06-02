@@ -1,8 +1,19 @@
 <template>
-  <div>
+  <div v-if="this.$store.state.properties.length">
     <nuxt />
   </div>
+  <div v-else class="container">
+    <h3 class="loading">LOADING...</h3>
+  </div>
 </template>
+
+<script>
+export default {
+  created() {
+    this.$store.dispatch('loadProperties')
+  }
+}
+</script>
 
 <style lang="postcss">
 html {
@@ -43,6 +54,16 @@ body {
   min-height: 100vh;
 }
 
+.hidden {
+  display: none;
+}
+
+.loading {
+  letter-spacing: 5px;
+  color: #f15b40;
+  font-weight: 800;
+}
+
 .color-grey {
   color: #585453;
 }
@@ -59,6 +80,12 @@ body {
 .mt-30 {
   margin-top: 30px;
 }
+.mb-20 {
+  margin-bottom: 20px;
+}
+.mb-50 {
+  margin-bottom: 50px;
+}
 .my-10 {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -66,6 +93,14 @@ body {
 .my-20 {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+.my-30 {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.my-100 {
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
 .my-200 {
   margin-top: 200px;

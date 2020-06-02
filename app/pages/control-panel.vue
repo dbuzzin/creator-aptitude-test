@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="control-wrapper">
+    <div class="control-wrapper my-100">
       <div class="control-inner">
         <nav>
           <div class="control-nav">
@@ -39,7 +39,7 @@ export default {
 <style lang="postcss" scoped>
 .control-wrapper {
   display: flex;
-  height: 700px;
+  /* height: 700px; */
   width: 80%;
   padding: 50px 20px;
   background-color: #f0f0f0;

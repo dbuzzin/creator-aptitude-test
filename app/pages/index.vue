@@ -1,5 +1,5 @@
 <template>
-  <div v-if="propertyArr.length" class="container">
+  <div class="container">
     <nav class="nav">
       <LinkButton
         route-to="/control-panel"
@@ -10,19 +10,21 @@
     </nav>
     <div class="my-200">
       <div
-        v-for="(property, pIndex) in filterContracts"
+        v-for="(property, pIndex) in filterContracts(propertyArr)"
         :key="pIndex"
-        class="property-card"
       >
-        <div class="flex property-card__wrapper">
-          <ImageSlider :photos="property.media.photos" />
-          <PropertyDetails :property="property" />
+        <div
+          v-for="(contract, index) in property.contracts"
+          :key="index"
+          class="property-card"
+        >
+          <div class="flex property-card__wrapper">
+            <ImageSlider :photos="property.media.photos" />
+            <PropertyDetails :contract-index="index" :property="property" />
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div v-else class="container">
-    <h3 class="loading">LOADING...</h3>
   </div>
 </template>
 
@@ -30,6 +32,7 @@
 import ImageSlider from './../components/carousel/ImageSlider.vue'
 import PropertyDetails from './../components/PropertyDetails.vue'
 import LinkButton from './../components/LinkButton.vue'
+import { filterContracts } from './../assets/javascript/utilities.js'
 
 export default {
   components: {
@@ -42,18 +45,13 @@ export default {
       propertyArr: this.$store.state.properties
     }
   },
-  computed: {
-    filterContracts() {
-      return this.propertyArr.filter((property) => property.contracts.length)
-    }
-  },
-  created() {
-    this.$store.dispatch('loadProperties')
-  },
   mounted() {
     this.$store.subscribe((mutation, state) => {
       this.propertyArr = state.properties
     })
+  },
+  methods: {
+    filterContracts: (arr) => filterContracts(arr)
   }
 }
 </script>
@@ -77,10 +75,5 @@ export default {
     width: 938px;
     overflow: hidden;
   }
-}
-.loading {
-  letter-spacing: 5px;
-  color: #f15b40;
-  font-weight: 800;
 }
 </style>

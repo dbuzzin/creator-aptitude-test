@@ -26,7 +26,7 @@
       Excluding Bills
     </h3>
     <LinkButton
-      :to="property.contracts[contractIndex].book_now_url"
+      :to="property.contracts[0].book_now_url"
       :color="'orange'"
       :size="'large'"
       :name="'BOOK NOW'"
@@ -46,10 +46,6 @@ export default {
     property: {
       type: Object,
       default: () => {}
-    },
-    contractIndex: {
-      type: Number,
-      default: 0
     }
   },
   computed: {
@@ -58,7 +54,7 @@ export default {
      */
 
     calculateRentPerMonth() {
-      const prices = this.property.contracts[this.contractIndex].prices
+      const prices = this.property.contracts[0].prices
       const pricePerWeek = parseInt(prices[0].price_per_person_per_week)
 
       return Math.floor((pricePerWeek * 52) / 12)
@@ -69,7 +65,7 @@ export default {
      */
 
     availableFrom() {
-      const startDate = this.property.contracts[this.contractIndex].start_date
+      const startDate = this.property.contracts[0].start_date
       const numericMonth = parseInt(startDate.match(/\b\d{2}(?=-)/))
       const year = startDate.match(/^\d{4}/)
       const months = [
