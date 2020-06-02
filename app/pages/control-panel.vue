@@ -32,6 +32,9 @@ import UpdateBookNow from './../components/admin/UpdateBookNow'
 export default {
   components: {
     UpdateBookNow
+  },
+  created() {
+    this.$store.dispatch('loadProperties')
   }
 }
 </script>

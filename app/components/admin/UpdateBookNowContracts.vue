@@ -59,29 +59,6 @@ export default {
     hidden() {
       return this.openIndex !== this.propertyIndex
     }
-  },
-  methods: {
-    /**
-     * Sends the new url to the server which then edits updates the json file.
-     */
-
-    postData() {
-      this.responseMsg = ''
-      this.newUrl !== '' &&
-        this.$axios
-          .$post('http://localhost:8000/api/update-url', {
-            book_now_url: this.newUrl
-          })
-          .then((response) => {
-            this.newUrl = ''
-            this.responseMsg = 'Your new url was set successfully!'
-          })
-          .catch((error) => {
-            this.responseMsg =
-              'Sorry, there was an issue with your request. Please try again.'
-            throw new Error(error)
-          })
-    }
   }
 }
 </script>

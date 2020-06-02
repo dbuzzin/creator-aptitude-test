@@ -22,4 +22,4 @@ Route::get('/api', function () {
     return response($data)->header('Access-Control-Allow-Origin', '*')->header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 });
 
-Route::post('/api/update-url', 'UpdateJson@testChangeUrl');
+Route::post('/api/update-url', 'UpdateJson@postChangeUrl');
